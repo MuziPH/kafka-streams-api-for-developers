@@ -26,6 +26,7 @@ public class GreetingsTopology {
 
         // Processor the streaming records
         KStream<String, String> modifiedStream = greetingsStream
+                .filter((key, greeting) -> greeting.length() > 5)
                 .mapValues((readOnlyKey, value) -> value.toUpperCase());
         // Print the transformed stream
         modifiedStream
